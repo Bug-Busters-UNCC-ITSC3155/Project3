@@ -20,6 +20,7 @@ class TableTemplate{
             }
         }
         
+        //change whole table since not specified
         if(columnName == " "){
             for(var i = 1; i < rowCount;i++){
                 var indices = table.rows.item(i).cells;
@@ -28,6 +29,7 @@ class TableTemplate{
                     indices[j].innerHTML = this.extractString(storage,dict);
                 }
             }
+        //if is specified
         } else if( indexFill != null){
             for(var i = 1; i < rowCount;i++){
                 var indices = table.rows.item(i).cells;
