@@ -20,6 +20,7 @@ class TableTemplate{
             }
         }
         
+        columnName = " ";
         //change whole table since not specified
         if(columnName == " "){
             for(var i = 1; i < rowCount;i++){
@@ -33,26 +34,24 @@ class TableTemplate{
         } else if( indexFill != null){
             for(var i = 1; i < rowCount;i++){
                 var indices = table.rows.item(i).cells;
-                storage = String(indices.item(j).innerHTML);
+                storage = String(indices.item(indexFill).innerHTML);
                 indices[indexFill].innerHTML = this.extractString(storage,dict);
             }
         } 
 
 
     } 
-    //replace string function
-    static extractString(str,dict){
-        var regex = /{{.*}}/g;
-        var arr = []
-        while(arr = regex.exec(str) != null){
-            for(var key in dict){
-                //arr[1] is the matched string so regex({{a}}) = a -> arr[1]
-                if(dict[key] == arr[1]){
-                    str = str.replace("{{"+arr[1]+"}}",dict[key])
-                }
+    extractString(text, dictionary){
+        let returnString = text;
+        for (const property in dictionary){
+            if (Object.prototype.hasOwnProperty.call(dictionary, property)) {
+                returnString = returnString.replaceAll("{{" + property + "}}",dictionary[property]);
             }
         }
-        return str;
+        const regex = /{{.*}}/g;
+        returnString = returnString.replaceAll(regex,"");
+        return returnString;
     }
+    
 
 }
